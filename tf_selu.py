@@ -59,5 +59,5 @@ def plot_learning_curves(history):
 plot_learning_curves(history)
 
 model.evaluate(x_test_scaled,y_test)
-
+print('ll')
 
