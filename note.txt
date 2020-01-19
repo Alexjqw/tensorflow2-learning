@@ -1,0 +1,7 @@
+##打开tensorboard tensorboard --logdir=callbacks
+
+selu 带有归一化的激活函数
+2.
+AlphaDropout比dropout更加强大
+均值方差不变。
+归一化性质不变
