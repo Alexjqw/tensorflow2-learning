@@ -26,17 +26,21 @@ x_train_scaled = scaler.fit_transform(x_train.astype(np.float32).reshape(-1,1)).
 x_valid_scaled = scaler.transform(x_valid.astype(np.float32).reshape(-1,1)).reshape(-1,28,28)
 x_test_scaled = scaler.transform(x_test.astype(np.float32).reshape(-1,1)).reshape(-1,28,28)
 
+
+def customize_mse(y_true,y_pred):
+    return tf.reduce_mean(tf.square(y_pred - y_true))
+
+
+
 model = keras.models.Sequential()
 model.add(keras.layers.Flatten(input_shape = [28,28]))
 
-for _ in range(20):   
-    model.add(keras.layers.Dense(100,activation ="selu"))
-   
-
+for _ in range(20):
+    model.add(keras.layers.Dense(100,activation ="relu"))
 model.add(keras.layers.Dense(10,activation = "softmax"))
 
-model.summary()
-model.compile(loss="sparse_categorical_crossentropy",optimizer="sgd",metrics = ["accuracy"])
+
+model.compile(loss=customize_mse,optimizer="sgd",metrics = ["mean_squared_error"])
 
 logdir = './dnn-callbacks'
 if not os.path.exists(logdir):
